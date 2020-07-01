@@ -1,0 +1,47 @@
+ID: scheduler
+_schema-version: '2.1'
+version: 0.0.1
+modules:
+  - name: scheduler-db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 128M
+    requires:
+      - name: scheduler-db-hdi-container
+  - name: scheduler-srv
+    type: nodejs
+    path: srv
+    parameters:
+      memory: 256M
+      disk-quota: 128M
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: scheduler-db-hdi-container
+  - name: schedule
+    type: nodejs
+    path: schedule
+    provides:
+      - name: schedule_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: scheduler-db-hdi-container
+  - name: sch
+    type: nodejs
+    path: sch
+    provides:
+      - name: sch_api
+        properties:
+          url: '${default-url}'
+    requires:
+      - name: scheduler-db-hdi-container
+resources:
+  - name: scheduler-db-hdi-container
+    type: com.sap.xs.hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
