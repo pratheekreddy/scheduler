@@ -7,7 +7,7 @@
   "@sap/hdbext": "latest",
   "@sap/xsenv" : "latest",
    "cron": "^1.8.2",
-   "uuid":"8.2.0"
+   "uuid":"14.0.0"
   	
   },
   "description": "my description",
